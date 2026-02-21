@@ -25,11 +25,19 @@
         <button id="reset" type="button">New Game</button>
       </header>
 
-      <section
-        id="board"
-        class="board"
-        aria-label="Memory board"
-      ></section>
+      <div class="game-area">
+        <section
+          id="board"
+          class="board"
+          aria-label="Memory board"
+        ></section>
+
+        <aside class="matched-panel" aria-live="polite" aria-label="Successful matches">
+          <h2>Matched Unicorns</h2>
+          <p id="matched-empty">Find a pair to fill this gallery.</p>
+          <div id="matched-list" class="matched-list"></div>
+        </aside>
+      </div>
     </main>
 
     <script src="app.js"></script>

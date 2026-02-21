@@ -50,6 +50,12 @@ body {
   margin-bottom: 0.8rem;
 }
 
+.game-area {
+  display: grid;
+  gap: 0.8rem;
+  align-items: start;
+}
+
 h1 {
   margin: 0;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -88,6 +94,50 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, minmax(62px, 1fr));
   gap: 0.6rem;
+}
+
+.matched-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 0.65rem;
+  box-shadow: 0 6px 16px rgba(35, 38, 63, 0.12);
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+}
+
+.matched-panel h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#matched-empty {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(27, 31, 52, 0.85);
+}
+
+.matched-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.matched-token {
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  border: 2px solid rgba(27, 31, 52, 0.1);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(35, 38, 63, 0.12);
+}
+
+.matched-token img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card {
@@ -167,6 +217,11 @@ h1 {
 }
 
 @media (min-width: 700px) {
+  .game-area {
+    grid-template-columns: minmax(0, 1fr) clamp(172px, 22vw, 220px);
+    gap: 0.75rem;
+  }
+
   .board {
     grid-template-columns: repeat(5, minmax(90px, 1fr));
     gap: 0.7rem;

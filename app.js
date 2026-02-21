@@ -15,6 +15,8 @@ const board = document.getElementById("board");
 const matchesNode = document.getElementById("matches");
 const movesNode = document.getElementById("moves");
 const resetButton = document.getElementById("reset");
+const matchedList = document.getElementById("matched-list");
+const matchedEmptyNode = document.getElementById("matched-empty");
 
 let firstCard = null;
 let secondCard = null;
@@ -48,6 +50,27 @@ function shuffle(items) {
 function setStats() {
   matchesNode.textContent = String(matches);
   movesNode.textContent = String(moves);
+}
+
+function refreshMatchedPanel() {
+  const total = matchedList.childElementCount;
+  matchedEmptyNode.hidden = total > 0;
+  matchedList.setAttribute("aria-label", `Successful matches: ${total} of 10`);
+}
+
+function addMatchedPreview(asset, matchNumber) {
+  const preview = document.createElement("div");
+  preview.className = "matched-token";
+
+  const img = document.createElement("img");
+  img.src = asset;
+  img.alt = `Matched unicorn ${matchNumber}`;
+  img.loading = "lazy";
+  img.decoding = "async";
+
+  preview.appendChild(img);
+  matchedList.appendChild(preview);
+  refreshMatchedPanel();
 }
 
 function buildCard(asset, key, idx) {
@@ -102,9 +125,11 @@ function unflipPair() {
 function removePair() {
   const first = firstCard;
   const second = secondCard;
+  const matchedAsset = unicornAssets[Number(first.dataset.key)];
   lockBoard = true;
   matches += 1;
   setStats();
+  addMatchedPreview(matchedAsset, matches);
 
   first.classList.add("matched");
   second.classList.add("matched");
@@ -153,6 +178,8 @@ function newGame() {
   matches = 0;
   moves = 0;
   setStats();
+  matchedList.replaceChildren();
+  refreshMatchedPanel();
 
   const deck = shuffle(
     unicornAssets.flatMap((asset, index) => [
