@@ -1,0 +1,18 @@
+{
+  "name": "Unicorn Memory Match",
+  "short_name": "Unicorn Match",
+  "description": "A simple unicorn memory game for kids.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#fff4d6",
+  "theme_color": "#ffd8f3",
+  "icons": [
+    {
+      "src": "assets/icons/unicorn-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

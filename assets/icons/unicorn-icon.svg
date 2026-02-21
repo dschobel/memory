@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Unicorn Memory Match icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd6ef"/>
+      <stop offset="100%" stop-color="#c8f1ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <circle cx="256" cy="280" r="148" fill="#fff"/>
+  <path d="M256 82 211 189h90z" fill="#f6cf68" stroke="#ddae3f" stroke-width="7"/>
+  <path d="M171 224c17-48 54-74 85-74 44 0 84 36 92 82-22-14-42-16-67-15-54 1-79 14-110 34z" fill="#ff99c9"/>
+  <ellipse cx="216" cy="296" rx="10" ry="14" fill="#2f3457"/>
+  <ellipse cx="297" cy="296" rx="10" ry="14" fill="#2f3457"/>
+  <path d="M210 354c22 22 70 22 92 0" fill="none" stroke="#2f3457" stroke-width="10" stroke-linecap="round"/>
+</svg>
