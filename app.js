@@ -13,10 +13,19 @@ const unicornAssets = [
 
 const board = document.getElementById("board");
 const matchesNode = document.getElementById("matches");
+const matchGoalNode = document.getElementById("match-goal");
 const movesNode = document.getElementById("moves");
 const resetButton = document.getElementById("reset");
+const openSettingsButton = document.getElementById("open-settings");
+const settingsModal = document.getElementById("settings-modal");
+const settingsForm = document.getElementById("settings-form");
+const cardCountInput = document.getElementById("card-count");
+const cancelSettingsButton = document.getElementById("cancel-settings");
 const matchedList = document.getElementById("matched-list");
 const matchedEmptyNode = document.getElementById("matched-empty");
+
+const minTotalCards = 4;
+const maxTotalCards = unicornAssets.length * 2;
 
 let firstCard = null;
 let secondCard = null;
@@ -24,6 +33,11 @@ let lockBoard = false;
 let matches = 0;
 let moves = 0;
 let pendingTimers = [];
+let pairCount = unicornAssets.length;
+
+cardCountInput.min = String(minTotalCards);
+cardCountInput.max = String(maxTotalCards);
+cardCountInput.step = "2";
 
 function schedule(fn, delay) {
   const id = window.setTimeout(() => {
@@ -52,10 +66,17 @@ function setStats() {
   movesNode.textContent = String(moves);
 }
 
+function setMatchGoal() {
+  matchGoalNode.textContent = String(pairCount);
+}
+
 function refreshMatchedPanel() {
   const total = matchedList.childElementCount;
   matchedEmptyNode.hidden = total > 0;
-  matchedList.setAttribute("aria-label", `Successful matches: ${total} of 10`);
+  matchedList.setAttribute(
+    "aria-label",
+    `Successful matches: ${total} of ${pairCount}`
+  );
 }
 
 function addMatchedPreview(asset, matchNumber) {
@@ -125,7 +146,7 @@ function unflipPair() {
 function removePair() {
   const first = firstCard;
   const second = secondCard;
-  const matchedAsset = unicornAssets[Number(first.dataset.key)];
+  const matchedAsset = first.dataset.asset;
   lockBoard = true;
   matches += 1;
   setStats();
@@ -141,7 +162,7 @@ function removePair() {
     second.disabled = true;
     resetSelection();
 
-    if (matches === unicornAssets.length) {
+    if (matches === pairCount) {
       board.setAttribute("aria-label", "You found every unicorn pair!");
     }
   }, 430);
@@ -172,6 +193,39 @@ function onCardClick(card) {
   unflipPair();
 }
 
+function normalizeTotalCards(value) {
+  let total = Number.parseInt(value, 10);
+  if (Number.isNaN(total)) {
+    total = pairCount * 2;
+  }
+
+  total = Math.max(minTotalCards, Math.min(maxTotalCards, total));
+  if (total % 2 !== 0) {
+    total -= 1;
+  }
+
+  return total;
+}
+
+function openSettingsModal() {
+  cardCountInput.value = String(pairCount * 2);
+  if (typeof settingsModal.showModal === "function") {
+    settingsModal.showModal();
+    return;
+  }
+
+  settingsModal.setAttribute("open", "");
+}
+
+function closeSettingsModal() {
+  if (typeof settingsModal.close === "function") {
+    settingsModal.close();
+    return;
+  }
+
+  settingsModal.removeAttribute("open");
+}
+
 function newGame() {
   clearPendingTimers();
   firstCard = null;
@@ -179,25 +233,42 @@ function newGame() {
   lockBoard = false;
   matches = 0;
   moves = 0;
+  setMatchGoal();
   setStats();
   matchedList.replaceChildren();
   refreshMatchedPanel();
 
+  const selectedAssets = shuffle(unicornAssets).slice(0, pairCount);
   const deck = shuffle(
-    unicornAssets.flatMap((asset, index) => [
+    selectedAssets.flatMap((asset, index) => [
       { asset, key: index },
       { asset, key: index }
     ])
   );
 
   board.replaceChildren(
-    ...deck.map((card, idx) => buildCard(card.asset, card.key, idx))
+    ...deck.map((card, idx) => {
+      const button = buildCard(card.asset, card.key, idx);
+      button.dataset.asset = card.asset;
+      return button;
+    })
   );
 
-  board.setAttribute("aria-label", "Memory board");
+  board.setAttribute("aria-label", `Memory board with ${deck.length} cards`);
 }
 
 resetButton.addEventListener("click", newGame);
+openSettingsButton.addEventListener("click", openSettingsModal);
+cancelSettingsButton.addEventListener("click", closeSettingsModal);
+settingsForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const totalCards = normalizeTotalCards(cardCountInput.value);
+  pairCount = totalCards / 2;
+  cardCountInput.value = String(totalCards);
+  closeSettingsModal();
+  newGame();
+});
+
 newGame();
 
 if ("serviceWorker" in navigator) {

@@ -19,10 +19,13 @@
       <header class="topbar">
         <h1>Unicorn Memory Match</h1>
         <div class="stats" aria-live="polite">
-          <p><span id="matches">0</span> / 10 matches</p>
+          <p><span id="matches">0</span> / <span id="match-goal">10</span> matches</p>
           <p><span id="moves">0</span> moves</p>
         </div>
-        <button id="reset" type="button">New Game</button>
+        <div class="topbar-actions">
+          <button id="reset" type="button">New Game</button>
+          <button id="open-settings" type="button">Settings</button>
+        </div>
       </header>
 
       <div class="game-area">
@@ -39,6 +42,29 @@
         </aside>
       </div>
     </main>
+
+    <dialog id="settings-modal" aria-labelledby="settings-title">
+      <form id="settings-form" class="settings-form">
+        <h2 id="settings-title">Game Settings</h2>
+        <label for="card-count">Cards per game</label>
+        <input
+          id="card-count"
+          name="cardCount"
+          type="number"
+          min="4"
+          max="20"
+          step="2"
+          value="20"
+          inputmode="numeric"
+          required
+        />
+        <p class="settings-note">Use an even number from 4 to 20.</p>
+        <div class="settings-actions">
+          <button id="cancel-settings" type="button">Cancel</button>
+          <button id="save-settings" type="submit">Save & Restart</button>
+        </div>
+      </form>
+    </dialog>
 
     <script src="app.js"></script>
   </body>

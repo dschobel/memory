@@ -11,7 +11,6 @@ Simple iPad-friendly memory game for kids:
 Because service workers require HTTP(S), use a local server:
 
 ```bash
-cd /Users/daniel/Code/memory
 python3 -m http.server 4173
 ```
 
@@ -25,6 +24,6 @@ Then open `http://localhost:4173`.
 
 ## Replace unicorn images
 
-Replace files in `/Users/daniel/Code/memory/assets/unicorns/` keeping 10 unique images.
+Replace files in `./assets/unicorns/` keeping 10 unique images.
 
-See `/Users/daniel/Code/memory/assets/unicorns/README.md` for specs.
+See `./assets/unicorns/README.md` for specs.

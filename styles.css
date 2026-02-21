@@ -74,7 +74,14 @@ h1 {
   font-weight: 600;
 }
 
-#reset {
+.topbar-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.topbar-actions button {
   border: 0;
   border-radius: 999px;
   padding: 0.55rem 1rem;
@@ -86,8 +93,13 @@ h1 {
   cursor: pointer;
 }
 
-#reset:active {
+.topbar-actions button:active {
   transform: translateY(1px);
+}
+
+#open-settings {
+  background: linear-gradient(180deg, #ffffff, #ebf3ff);
+  color: #294e7a;
 }
 
 .board {
@@ -211,6 +223,73 @@ h1 {
 
 .card.cleared {
   visibility: hidden;
+}
+
+#settings-modal {
+  width: min(360px, calc(100% - 1.2rem));
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(27, 31, 52, 0.3);
+}
+
+#settings-modal::backdrop {
+  background: rgba(20, 24, 42, 0.5);
+}
+
+.settings-form {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.settings-form h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.settings-form label {
+  font-weight: 700;
+}
+
+.settings-form input {
+  width: 100%;
+  border: 2px solid rgba(27, 31, 52, 0.2);
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.settings-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(27, 31, 52, 0.8);
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+}
+
+.settings-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#cancel-settings {
+  background: #f4f6fb;
+  color: #36435a;
+}
+
+#save-settings {
+  background: linear-gradient(180deg, #fff, #d9edff);
+  color: #224a73;
 }
 
 @keyframes poof {
