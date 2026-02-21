@@ -209,6 +209,10 @@ h1 {
   animation: poof 420ms ease forwards;
 }
 
+.card.cleared {
+  visibility: hidden;
+}
+
 @keyframes poof {
   to {
     opacity: 0;

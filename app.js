@@ -135,8 +135,10 @@ function removePair() {
   second.classList.add("matched");
 
   schedule(() => {
-    first.remove();
-    second.remove();
+    first.classList.add("cleared");
+    second.classList.add("cleared");
+    first.disabled = true;
+    second.disabled = true;
     resetSelection();
 
     if (matches === unicornAssets.length) {
