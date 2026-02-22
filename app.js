@@ -21,6 +21,9 @@ const settingsModal = document.getElementById("settings-modal");
 const settingsForm = document.getElementById("settings-form");
 const cardCountInput = document.getElementById("card-count");
 const cancelSettingsButton = document.getElementById("cancel-settings");
+const victoryModal = document.getElementById("victory-modal");
+const victorySprite = document.getElementById("victory-sprite");
+const closeVictoryButton = document.getElementById("close-victory");
 const matchedList = document.getElementById("matched-list");
 const matchedEmptyNode = document.getElementById("matched-empty");
 
@@ -164,6 +167,7 @@ function removePair() {
 
     if (matches === pairCount) {
       board.setAttribute("aria-label", "You found every unicorn pair!");
+      playVictoryAnimation();
     }
   }, 430);
 }
@@ -226,8 +230,43 @@ function closeSettingsModal() {
   settingsModal.removeAttribute("open");
 }
 
+function openVictoryModal() {
+  if (typeof victoryModal.showModal === "function") {
+    if (!victoryModal.open) {
+      victoryModal.showModal();
+    }
+    return;
+  }
+
+  victoryModal.setAttribute("open", "");
+}
+
+function stopVictoryAnimation() {
+  victorySprite.classList.remove("is-animating");
+}
+
+function closeVictoryModal() {
+  if (typeof victoryModal.close === "function") {
+    if (victoryModal.open) {
+      victoryModal.close();
+    }
+  } else {
+    victoryModal.removeAttribute("open");
+  }
+
+  stopVictoryAnimation();
+}
+
+function playVictoryAnimation() {
+  openVictoryModal();
+  stopVictoryAnimation();
+  void victorySprite.offsetWidth;
+  victorySprite.classList.add("is-animating");
+}
+
 function newGame() {
   clearPendingTimers();
+  closeVictoryModal();
   firstCard = null;
   secondCard = null;
   lockBoard = false;
@@ -260,6 +299,8 @@ function newGame() {
 resetButton.addEventListener("click", newGame);
 openSettingsButton.addEventListener("click", openSettingsModal);
 cancelSettingsButton.addEventListener("click", closeSettingsModal);
+closeVictoryButton.addEventListener("click", closeVictoryModal);
+victoryModal.addEventListener("close", stopVictoryAnimation);
 settingsForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const totalCards = normalizeTotalCards(cardCountInput.value);

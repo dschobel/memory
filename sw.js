@@ -1,10 +1,11 @@
-const CACHE_NAME = "unicorn-memory-v1";
+const CACHE_NAME = "unicorn-memory-v3";
 
 const ASSETS = [
   "./",
   "index.html",
   "styles.css",
   "app.js",
+  "kitten_sprites.png",
   "manifest.webmanifest",
   "assets/icons/unicorn-icon.svg",
   "assets/unicorns/unicorn-01.svg",

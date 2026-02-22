@@ -237,6 +237,62 @@ h1 {
   background: rgba(20, 24, 42, 0.5);
 }
 
+#victory-modal {
+  width: min(560px, calc(100% - 1.2rem));
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(27, 31, 52, 0.3);
+}
+
+#victory-modal::backdrop {
+  background: rgba(20, 24, 42, 0.6);
+}
+
+.victory-content {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.victory-content h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.kitten-sprite {
+  width: min(100%, 360px);
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  border: 2px solid rgba(27, 31, 52, 0.15);
+  background-color: #fff;
+  background-image: url("kitten_sprites.png");
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+}
+
+.kitten-sprite.is-animating {
+  animation: kitten-celebrate 900ms steps(1, end) infinite;
+}
+
+.victory-actions {
+  display: flex;
+  justify-content: end;
+}
+
+#close-victory {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(180deg, #fff, #d9edff);
+  color: #224a73;
+}
+
 .settings-form {
   display: grid;
   gap: 0.75rem;
@@ -299,6 +355,28 @@ h1 {
   }
 }
 
+@keyframes kitten-celebrate {
+  0%,
+  24.9% {
+    background-position: 0% 0%;
+  }
+
+  25%,
+  49.9% {
+    background-position: 100% 0%;
+  }
+
+  50%,
+  74.9% {
+    background-position: 0% 100%;
+  }
+
+  75%,
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 @media (min-width: 700px) {
   .game-area {
     grid-template-columns: minmax(0, 1fr) clamp(172px, 22vw, 220px);
@@ -319,5 +397,9 @@ h1 {
   .card.matched {
     animation: none;
     opacity: 0;
+  }
+
+  .kitten-sprite.is-animating {
+    animation: none;
   }
 }
