@@ -20,6 +20,7 @@ const openSettingsButton = document.getElementById("open-settings");
 const settingsModal = document.getElementById("settings-modal");
 const settingsForm = document.getElementById("settings-form");
 const cardCountInput = document.getElementById("card-count");
+const cardCountValueNode = document.getElementById("card-count-value");
 const cancelSettingsButton = document.getElementById("cancel-settings");
 const victoryModal = document.getElementById("victory-modal");
 const victorySprite = document.getElementById("victory-sprite");
@@ -211,8 +212,13 @@ function normalizeTotalCards(value) {
   return total;
 }
 
+function setCardCountDisplay(value) {
+  cardCountValueNode.textContent = String(normalizeTotalCards(value));
+}
+
 function openSettingsModal() {
   cardCountInput.value = String(pairCount * 2);
+  setCardCountDisplay(cardCountInput.value);
   if (typeof settingsModal.showModal === "function") {
     settingsModal.showModal();
     return;
@@ -301,15 +307,20 @@ openSettingsButton.addEventListener("click", openSettingsModal);
 cancelSettingsButton.addEventListener("click", closeSettingsModal);
 closeVictoryButton.addEventListener("click", closeVictoryModal);
 victoryModal.addEventListener("close", stopVictoryAnimation);
+cardCountInput.addEventListener("input", () => {
+  setCardCountDisplay(cardCountInput.value);
+});
 settingsForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const totalCards = normalizeTotalCards(cardCountInput.value);
   pairCount = totalCards / 2;
   cardCountInput.value = String(totalCards);
+  setCardCountDisplay(cardCountInput.value);
   closeSettingsModal();
   newGame();
 });
 
+setCardCountDisplay(cardCountInput.value);
 newGame();
 
 if ("serviceWorker" in navigator) {

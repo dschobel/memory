@@ -1,4 +1,4 @@
-const CACHE_NAME = "unicorn-memory-v3";
+const CACHE_NAME = "unicorn-memory-v4";
 
 const ASSETS = [
   "./",

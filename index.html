@@ -46,17 +46,18 @@
     <dialog id="settings-modal" aria-labelledby="settings-title">
       <form id="settings-form" class="settings-form">
         <h2 id="settings-title">Game Settings</h2>
-        <label for="card-count">Cards per game</label>
+        <label for="card-count">
+          Cards per game:
+          <span id="card-count-value" aria-live="polite">20</span>
+        </label>
         <input
           id="card-count"
           name="cardCount"
-          type="number"
+          type="range"
           min="4"
           max="20"
           step="2"
           value="20"
-          inputmode="numeric"
-          required
         />
         <p class="settings-note">Use an even number from 4 to 20.</p>
         <div class="settings-actions">
